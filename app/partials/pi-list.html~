@@ -1,0 +1,23 @@
+<!-- PI LIST !-->
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h4>{{ title }}</h4>
+  </div>
+  <div class="list-group" ng-repeat="pi in pis">
+    <div class="list-group-item">
+      <div class="row">
+	<div class="col-sm-6 left">
+	  <h4 class="list-group-item-heading">{{ pi.label }}</h4>
+	  <p class="list-group-item-text">{{ pi.beginningDate }} - {{ pi.endDate }}</p>
+	</div>
+	<div class="col-sm-6 right">
+	  <span class="glyphicon glyphicon-wrench"></span>
+	</div>
+      </div>
+    </div>
+  </div>
+</div>
+<center>
+  <a class="btn btn-default" href="#/add-pi" role="button">Add next PI</a>
+</center>
+<!-- END PI LIST !-->

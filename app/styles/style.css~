@@ -1,0 +1,11 @@
+body { 
+    padding-top: 70px; 
+    padding-left: 20%;
+    padding-right: 20%;
+}
+
+.navbar-right { padding-right: 30px;}
+
+.left {text-align: left;}
+.right {text-align: right;}
+.center {text-align: center;}

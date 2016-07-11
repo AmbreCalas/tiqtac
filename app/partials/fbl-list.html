@@ -1,0 +1,83 @@
+<!-- FBL LIST !-->
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h4>{{ title }}</h4>
+  </div>
+  <table class="table center">
+    <thead>
+    <tr>
+      <th>FBL</th>
+      <th class="center">Points</th>
+      <th class="center">M.D</th>
+      <th class="center">Risk</th>
+      <th class="center">Estimate M.D</th>
+      <th class="center"></th>
+    </tr>
+    </thead>
+    <tbody ng-repeat="fbl in fbls | orderBy: ['-probability', 'fbl_id']" ng-switch="fbl.probability">
+    <tr ng-switch-when=1 class="success">
+      <th scope="row"><a href="#/pi/{{pi_number}}/fbl/{{fbl.fbl_id}}">{{ fbl.fbl_name }}</a></th>
+      <td>{{ fbl.points }}</td>
+      <td>{{ fbl.md }}</td>
+      <td>{{ fbl.risk }}</td>
+      <td>{{ fbl.estimate_md }}</td>
+      <td>
+        <a href="" title="edit" class="glyphicon glyphicon-wrench"></a>
+        <a href="#/pi/{{pi_number}}/fbl/{{fbl.fbl_id}}/move" title="move" class="glyphicon glyphicon-share"></a>
+        <a href="" title="delete" class="glyphicon glyphicon-remove-circle" ng-click="open('lg', fbl.fbl_id)"></a>
+      </td>
+    </tr>
+    <tr ng-switch-when=0.5 class="warning">
+      <th scope="row"><a href="#">{{ fbl.fbl_name }}</a></th>
+      <td>{{ fbl.points }}</td>
+      <td>{{ fbl.md }}</td>
+      <td>{{ fbl.risk }}</td>
+      <td>{{ fbl.estimate_md }}</td>
+
+      <td>
+        <a href="" title="edit" class="glyphicon glyphicon-wrench"></a>
+        <a href="" title="move" class="glyphicon glyphicon-share"></a>
+        <a href="" title="delete" class="glyphicon glyphicon-remove-circle" ng-click="open('sm', fbl.fbl_id)"></a>
+      </td>
+    </tr>
+    <tr ng-switch-when=0.2 class="danger">
+      <th scope="row"><a href="#">{{ fbl.fbl_name }}</a></th>
+      <td>{{ fbl.points }}</td>
+      <td>{{ fbl.md }}</td>
+      <td>{{ fbl.risk }}</td>
+      <td>{{ fbl.estimate_md }}</td>
+      <td>
+        <a href="" title="edit" class="glyphicon glyphicon-wrench"></a>
+        <a href="" title="move" class="glyphicon glyphicon-share"></a>
+        <a href="" title="delete" class="glyphicon glyphicon-remove-circle" ng-click="open('sm', fbl.fbl_id)"></a>
+      </td>
+    </tr>
+    <tr ng-switch-when=0 class="fbl_total">
+      <th scope="row">{{ fbl.fbl_name }}</th>
+      <td>{{ fbl.points | number:0 }}</td>
+      <td>{{ fbl.md | number:0 }}</td>
+      <td>{{ fbl.risk | number:0 }}</td>
+      <td>{{ fbl.estimate_md | number:0 }}</td>
+      <td></td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+<center>
+  <a class="btn btn-default" href="#/pi/all" role="button">Back</a>
+  <a class="btn btn-default" href="#/pi/{{pi_number}}/fbl/add" role="button">{{ addFblMessage }}</a>
+</center>
+
+<!--<center>
+ <input class="btn btn-default" type="submit" value="Submit changes">
+ <a class="btn btn-default" href="#" role="button">Access to history</a>
+ <input class="btn btn-default" type="submit" value="Generate review">
+ <a class="btn btn-default" href="#" role="button">End the PI</a>
+</center>!
+
+
+        <button type="button" class="btn btn-default" ng-click="open('sm')">Small modal</button>
+        -->
+
+<!-- END FBL LIST !-->
+

@@ -1,0 +1,25 @@
+<!-- FBL MOVE !-->
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h4>{{ title }}</h4>
+  </div>
+  <center><h5>{{ actualPi }}</h5></center>
+  <form class="form-horizontal" name="fblForm" ng-submit="submit()" novalidate>
+    <div class="form-group">
+      <label class="col-sm-2 control-label">PI :</label>
+      <div class="col-sm-8">
+        <select name="proba" class="form-control" id="proba" ng-required="true" ng-model="selectedPi">
+          <option ng-repeat="pi in nonActualPis">{{ pi.pi_number }}</option>
+        </select>
+        <div ng-messages="fblForm.proba.$error"><div ng-messages-include="partials/form-errors.html"></div></div>
+      </div>
+    </div>
+    <div class="form-group center">
+      <a class="btn btn-default" href="#/pi/{{pi_number}}/fbl/all" role="button">Cancel</a>
+      <input class="btn btn-default" type="submit" formmethod="post" id="submit" value="Submit" ng-disabled="fblForm.$invalid" />
+    </div>
+  </form>
+</div>
+<!-- END FBL MOVE !-->
+
+{{newPi}}

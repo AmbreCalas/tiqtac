@@ -1,0 +1,22 @@
+body {
+    padding-top: 70px;
+    padding-left: 20%;
+    padding-right: 20%;
+}
+
+.navbar-right { padding-right: 30px;}
+
+.left {text-align: left;}
+.right {text-align: right;}
+.center {text-align: center;}
+
+.primary { background-color: @brand-primary; }
+.success {background-color: @brand-success;}
+.info {background-color: @brand-info;}
+.warning {background-color: @brand-warning;}
+.danger {background-color: @brand-danger;}
+
+a:link {color: #101010;}
+a:visited {color: #101010;}
+a:hover {color: #101010; text-decoration: none !important;}
+a:active {color: #101010;}
