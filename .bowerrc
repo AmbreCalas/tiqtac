@@ -1,0 +1,7 @@
+{
+  "directory": "bower_components",
+  "registry": "http://bower.herokuapp.com",
+  "proxy":"http://APPT0159893:thalescom02@gwhttp-h.corp.thales:8000",
+  "https-proxy":"http://APPT0159893:thalescom02@gwhttp-h.corp.thales:8000",
+  "strict-ssl": false
+}
