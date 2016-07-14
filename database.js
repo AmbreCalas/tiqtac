@@ -86,6 +86,12 @@ var fbl_table = sequelize.define('fbl_table', {
     defaultValue: Sequelize.NOW,
     allowNull: false
   },
+  coeff1: {
+    type: Sequelize.DECIMAL(6,3)
+  },
+  coeff2: {
+    type: Sequelize.DECIMAL(6,3)
+  },
   pi_id: {
     type: Sequelize.INTEGER.UNSIGNED,
     allowNull: false,
@@ -180,9 +186,10 @@ exports.add_fbl = function(piNumber, fblName, description, points, md, risk, est
       estimate_md: estimateMd,
       probability: probability,
       creation_date: Sequelize.now,
+      coeff1: pi.coeff1,
+      coeff2: pi.coeff2,
       pi_id: pi.pi_id
     }).then(function (res) {
-      console.log(res);
       return res.dataValues;
     })
   })
@@ -190,7 +197,7 @@ exports.add_fbl = function(piNumber, fblName, description, points, md, risk, est
 
 
 /* DATABASE MODIFICATION (PUT) */
-// Change the pi of a fbl
+// Change a fbl's pi
 exports.change_pi = function(fblId, piNumber) {
   return pi_table.findOne({where: {pi_number: piNumber}}).then(function(pi) {
     return fbl_table.update(
@@ -202,7 +209,37 @@ exports.change_pi = function(fblId, piNumber) {
   });
 };
 
+// Change a pi's coeffs
+exports.change_coeffs = function(piNumber, first, second) {
+  return pi_table.update(
+    {coeff1: first, coeff2: second},
+    {where: {pi_number: parseInt(piNumber)}}
+  ).then(function (res) {
+    return res.dataValues;
+  });
+};
 
+// Change fbl's values
+exports.modify_fbl = function(fblId, fblName, description, points, md, risk, estimateMd, probability) {
+  return fbl_table.update(
+    {fbl_name: fblName, fbl_description: description, points: points, md: md, risk: risk, estimate_md: estimateMd, probability: probability},
+    {where: {fbl_id: fblId}}
+  ).then(function (res) {
+    return res.dataValues;
+  });
+};
+
+// Change fbl's coeffs and apply to values
+exports.modify_fbl_coeffs = function(fblId, coeff1, coeff2) {
+  return fbl_table.findByPrimary(fblId).then(function (fbl) {
+    return fbl_table.update(
+      {coeff1: coeff1, coeff2: coeff2, md: fbl.points * coeff1, estimate_md: fbl.points * coeff1 * coeff2},
+      {where: {fbl_id: fblId}}
+    ).then(function (res) {
+      return res.dataValues;
+    });
+  });
+};
 
 /* DATABASE DELETION (DEL) */
 // Delete a fbl

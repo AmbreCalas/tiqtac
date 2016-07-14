@@ -115,7 +115,7 @@ server.get('/fbl/:fblId', function (req, res, next) {
 
 /* CREATION : POST */
 // Create a pi
-server.post('/pi/add/:piNumber/:firstCoeff/:secondCoeff', function(req, res, next) {
+server.post('/pi/add', function(req, res, next) {
   database.last_pi().then(function (pi) {
     database.add_pi(req.params.piNumber, req.params.firstCoeff, req.params.secondCoeff, pi.pi_end_date).then(function (data) {
       res.send(data);
@@ -125,8 +125,8 @@ server.post('/pi/add/:piNumber/:firstCoeff/:secondCoeff', function(req, res, nex
 });
 
 // Create a fbl
-server.post('/pi/:piNumber/fbl/add/:fblName/:description/:points/:md/:risk/:estimateMd/:proba', function(req, res, next) {
-    database.add_fbl(req.params.piNumber, req.params.fblName, req.params.description, req.params.points, req.params.md, req.params.risk, req.params.estimateMd, req.params.proba).then(function (data) {
+server.post('/pi/:piNumber/fbl/add', function(req, res, next) {
+    database.add_fbl(req.params.piNumber, req.params.name, req.params.description, req.params.points, req.params.md, req.params.risk, req.params.estimateMd, req.params.probability).then(function (data) {
       res.send(data);
     });
     return next();
@@ -134,6 +134,7 @@ server.post('/pi/:piNumber/fbl/add/:fblName/:description/:points/:md/:risk/:esti
 
 
 /* DELETION : DEL */
+// Delete a fbl
 server.del('/fbl/:fblId/del', function(req, res, next) {
   database.delete_fbl(req.params.fblId).then(function (data) {
     res.send(data);
@@ -143,12 +144,50 @@ server.del('/fbl/:fblId/del', function(req, res, next) {
 
 
 /* MODIFICATION : PUT */
-server.put('/fbl/:fblId/:piNumber', function(req, res, next) {
-  database.change_pi(req.params.fblId, req.params.piNumber).then(function (data) {
+// Change a fbl's pi
+server.put('/pi/:actualPiNumber/fbl/:fblId/move', function(req, res, next) {
+  database.change_pi(req.params.fblId, req.params.newPiNumber).then(function (data) {
     res.send(data);
   });
   return next();
 });
+
+// Change fbl values
+server.put('/pi/:piNumber/fbl/:fblId/modify', function(req,res,next) {
+  database.modify_fbl(req.params.fblId, req.params.fblName, req.params.description, req.params.points, req.params.md, req.params.risk, req.params.estimateMd, req.params.probability).then(function (data) {
+    res.send(data);
+  });
+  return next();
+});
+
+// Change fbl coeffs
+server.put('/pi/:piNumber/fbl/:fblId/setValues', function(req,res,next) {
+  database.modify_fbl_coeffs(req.params.fblId, req.params.coeff1, req.params.coeff2).then(function (data) {
+    res.send(data);
+  });
+  return next();
+});
+
+// Change a pi's fbl values (reset proportionality)
+server.put('/pi/:piNumber/adjustFbls', function(req,res,next) {
+  database.fbl_all(req.params.piNumber).then(function (data) {
+    for(var i = 0; i < data.length; i++) {
+      database.modify_fbl_coeffs(data[i].fbl_id, req.params.coeff1, req.params.coeff2).then(function(data) {
+      });
+    }
+    res.send(data);
+  });
+  return next();
+});
+
+// Change a pi's coeffs
+server.put('/pi/:piNumber/modify', function(req, res, next) {
+  database.change_coeffs(req.params.piNumber, req.params.firstCoeff, req.params.secondCoeff).then(function (data) {
+    res.send(data);
+  });
+  return next();
+});
+
 
 
 server.listen(8080, function () {
