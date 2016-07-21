@@ -1,10 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-
-</body>
-</html>
+<!-- Header !-->
+<div class="modal-header">
+  <h3 class="modal-title"><span class="glyphicon glyphicon-exclamation-sign"></span> You'll lose all changes</h3>
+</div>
+<!-- Body !-->
+<div class="modal-body">
+  Are you sure you want to go back ?
+</div>
+<!-- Footer !-->
+<div class="modal-footer">
+  <!-- If there are changes -->
+  <button class="btn btn-default" type="button" ng-click="cancel()">Cancel</button>
+  <button class="btn btn-default" type="button" ng-click="goBack()">Confirm</button>
+</div>
