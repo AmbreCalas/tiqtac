@@ -1,18 +1,22 @@
 <!-- PI LIST !-->
 <div class="panel panel-default">
+  <!-- Title !-->
   <div class="panel-heading">
     <h4>{{ title }}</h4>
   </div>
+  <!-- Pi list !-->
   <div class="list-group" ng-repeat="pi in pis">
     <div class="list-group-item">
       <div class="row">
-	<div class="col-sm-6 left">
-	  <h4 class="list-group-item-heading"><a ng-href="#/pi/{{pi.pi_number}}/fbl/all">PI{{ pi.pi_number }}</a></h4>
-	  <p class="list-group-item-text">{{ pi.pi_beginning_date | date : format : mediumDate }} - {{ pi.pi_end_date | date : format : mediumDate }}</p>
-	</div>
-	<div class="col-sm-6 right">
-	  <span class="glyphicon glyphicon-wrench"></span>
-	</div>
+        <!-- PI title and date !-->
+        <div class="col-sm-6 left">
+          <h4 class="list-group-item-heading"><a ng-href="#/pi/{{pi.pi_number}}/fbl/all">PI{{ pi.pi_number }}</a></h4>
+          <p class="list-group-item-text">{{ pi.pi_beginning_date | date : 'mediumDate' }} - {{ pi.pi_end_date | date : format : mediumDate }}</p>
+        </div>
+        <!-- Pi options !-->
+        <div class="col-sm-6 right">
+          <a href="#/pi/{{pi.pi_number}}/modify" title="modify" class="glyphicon glyphicon-wrench"></a>
+        </div>
       </div>
     </div>
   </div>
@@ -21,4 +25,3 @@
   <a class="btn btn-default" href="#/pi/add" role="button">{{ addPiMessage }}</a>
 </center>
 <!-- END PI LIST !-->
-{{essai}}

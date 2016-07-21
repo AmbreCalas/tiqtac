@@ -1,15 +1,44 @@
 <!-- FBL DETAILS !-->
 <div class="panel panel-default">
+  <!-- Title !-->
   <div class="panel-heading">
-    <h4>{{ title }}</h4>
+    <div class="row">
+      <div class="col-sm-11 left">
+        <h4>{{ title }}</h4>
+      </div>
+      <div class="col-sm-1 right">
+        <h4><a href="#/pi/{{pi_number}}/fbl/{{fbl_id}}/modify" title="add" class=" glyphicon glyphicon-wrench"></a></h4>
+      </div>
+    </div>
   </div>
-  Ici : l'historique de la FBL <br>
-  {{fbl}}
+  <!-- If there is a description -->
+  <div class="row ng-hide" ng-show="fbl.fbl_description !== ''">
+    <div class="col-sm-8 justify"><label class="control-label">Description : </label> <br>{{fbl.fbl_description}}</div>
+    <div class="col-sm-4">
+      <label class="control-label">Points to days : </label> {{fbl.coeff1}} <br>
+      <label class="control-label">Transverse : </label> {{fbl.coeff2}} <br>
+      <div class="row">
+        <label class="control-label col-sm-4">Probability : </label>
+        <div class="col-sm-7"><uib-progressbar value="fbl.probability * 100">{{fbl.probability * 100}} %</uib-progressbar></div>
+        <div class="col-sm-1"></div>
+      </div>
+    </div>
+  </div>
+  <!-- If there is no description -->
+  <div class="row ng-hide" ng-show="fbl.fbl_description === ''">
+    <div class="col-sm-2"></div>
+    <div class="col-sm-2"><label class="control-label">Points to days : </label> {{fbl.coeff1}}</div>
+    <div class="col-sm-2"><label class="control-label">Transverse : </label> {{fbl.coeff2}}</div>
+    <div class="row col-sm-4">
+      <label class="control-label col-sm-4">Probability : </label>
+      <div class="col-sm-7"><uib-progressbar value="fbl.probability * 100">{{fbl.probability * 100}} %</uib-progressbar></div>
+      <div class="col-sm-1"></div>
+    </div>
+    <div class="col-sm-2"></div>
+  </div>
+  <!-- Fbl per week values -->
 </div>
 <center>
-  <!--<a class="btn btn-default" href="#/pi/all" role="button">Back</a>
-  <a class="btn btn-default" href="#/pi/{{pi_number}}/fbl/add" role="button">{{ addFblMessage }}</a>-->
+  <a class="btn btn-default" href="#/pi/{{pi_number}}/fbl/all" role="button">Back</a>
 </center>
 <!-- END FBL DETAILS !-->
-
-

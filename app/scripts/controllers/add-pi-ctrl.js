@@ -2,20 +2,26 @@
 /* Add PI Controller */
 
 routeControllers.controller('addPiCtrl', ['$scope', '$location', 'CreatePi', 'LastPi', function($scope, $location, CreatePi, LastPi){
+  // Initialisation
   $scope.title = 'Add PI';
   $scope.pi_number = 1;
-  LastPi.then(function(res) {
+
+  // Get last pi information
+  LastPi().then(function(res) {
     $scope.lastPi = res.data;
     $scope.pi_number = $scope.lastPi.pi_number + 1;
+
+    // Prepare PI creation
     $scope.toAdd = 'PI' + $scope.pi_number;
     $scope.coeffs = [ {
-      'label' : 'Coefficient 1',
+      'label' : 'Points to days',
       'coeffValue' : $scope.lastPi.coeff1
     }, {
-      'label' : 'Coefficient 2',
+      'label' : 'Transverse',
       'coeffValue' : $scope.lastPi.coeff2
     }];
   });
+
   var redirectPath = '/pi/all';
   // Validate pi creation
   $scope.submit = function() {

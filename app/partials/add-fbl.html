@@ -1,9 +1,13 @@
 <!-- ADD FBL !-->
 <div class="panel panel-default">
+  <!-- Title !-->
   <div class="panel-heading">
     <h4>{{ title }}</h4>
   </div>
+
+  <!-- Beginning form group !-->
   <form class="form-horizontal" name="fblForm" ng-submit="submit()" novalidate>
+    <!-- FBL name !-->
     <div class="form-group">
       <label class="col-sm-2 control-label">FBL name :</label>
       <div class="col-sm-8">
@@ -11,6 +15,7 @@
         <div ng-messages="fblForm.fblname.$error"><div ng-messages-include="partials/form-errors.html"></div></div>
       </div>
     </div>
+    <!-- FBL description !-->
     <div class="form-group">
       <label class="col-sm-2 control-label">Description :</label>
       <div class="col-sm-8">
@@ -18,20 +23,23 @@
         <div ng-messages="fblForm.description.$error"><div ng-messages-include="partials/form-errors.html"></div></div>
       </div>
     </div>
+    <!-- Points !-->
     <div class="form-group">
       <label class="col-sm-2 control-label">Points :</label>
       <div class="col-sm-8">
-        <input name="points" class="form-control" type="number" ng-required="true" min="0" step="1" ng-model="points" pattern="\d*" />
+        <input name="points" class="form-control" type="number" ng-required="true" min="0" step="1" ng-model="points" round-input-number pattern="\d*" />
         <div ng-messages="fblForm.points.$error"><div ng-messages-include="partials/form-errors.html"></div></div>
       </div>
     </div>
+    <!-- MD !-->
     <div class="form-group">
       <label class="col-sm-2 control-label">M.d. :</label>
       <div class="col-sm-8">
-        <input name="md" class="form-control" type="number" ng-required="true" min="0" step="1" ng-model="md" pattern="\d*" />
+        <input name="md" class="form-control" type="number" ng-required="true" min="0" step="1" ng-model="md" round-input-number pattern="\d*" />
         <div ng-messages="fblForm.md.$error"><div ng-messages-include="partials/form-errors.html"></div></div>
       </div>
     </div>
+    <!-- Risk !-->
     <div class="form-group">
       <label class="col-sm-2 control-label">Risk :</label>
       <div class="col-sm-8">
@@ -39,13 +47,15 @@
         <div ng-messages="fblForm.risk.$error"><div ng-messages-include="partials/form-errors.html"></div></div>
       </div>
     </div>
+    <!-- Estimate MD !-->
     <div class="form-group">
       <label class="col-sm-2 control-label">Estimate m.d :</label>
       <div class="col-sm-8">
-        <input name="estimatemd" class="form-control" type="number" ng-required="true" min="0" step="1" ng-model="estimateMd" pattern="\d*" />
+        <input name="estimatemd" class="form-control" type="number" ng-required="true" min="0" step="1" ng-model="estimateMd" round-input-number pattern="\d*" />
         <div ng-messages="fblForm.estimatemd.$error"><div ng-messages-include="partials/form-errors.html"></div></div>
       </div>
     </div>
+    <!-- Probability !-->
     <div class="form-group">
       <label class="col-sm-2 control-label">Probability :</label>
       <div class="col-sm-8">
@@ -56,11 +66,13 @@
         <!-- INPUT VERSION :  <input class="form-control" type="number" ng-required="true" min="0" max="100" step="10" ng-model="probability" pattern="\d*" /> -->
       </div>
     </div>
+    <!-- Submit or cancel !-->
     <div class="form-group center">
       <a class="btn btn-default" href="#/pi/{{pi_number}}/fbl/all" role="button">Cancel</a>
       <input class="btn btn-default" type="submit" formmethod="post" id="submit" value="Submit" ng-disabled="fblForm.$invalid" />
     </div>
   </form>
+  <!-- End form group !-->
+
 </div>
 <!-- END ADD FBL !-->
-

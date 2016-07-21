@@ -1,9 +1,12 @@
 <!-- PI MODIFY !-->
 <div class="panel panel-default">
+  <!-- Title !-->
   <div class="panel-heading">
     <h4>{{ title }}</h4>
   </div>
+  <!-- Beginning form group !-->
   <form class="form-horizontal" name="piForm" ng-submit="submit()" novalidate>
+    <!-- Coeffs modification !-->
     <div ng-repeat="coeff in coeffs">
       <div class="form-group">
         <label class="col-sm-2 control-label">{{ coeff.label }} :</label>
@@ -13,16 +16,19 @@
         </div>
       </div>
     </div>
+    <!-- Apply to existing FBL checkbox !-->
     <div class="form-group">
       <label class="col-sm-2 control-label">Apply to existing FBL ? </label>
       <div class="col-sm-1">
         <input name="applyToAll" class="form-control" type="checkbox" ng-model="checkbox" />
       </div>
     </div>
+    <!-- Submit or cancel !-->
     <div class="form-group center">
       <a class="btn btn-default" href="#/pi/all" role="button">Cancel</a>
       <input class="btn btn-default" type="submit" formmethod="post" id="submit" value="Submit" ng-disabled="piForm.$invalid" />
     </div>
   </form>
+  <!-- End form group !-->
 </div>
 <!-- END PI MODIFY !-->

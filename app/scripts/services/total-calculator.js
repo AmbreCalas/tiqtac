@@ -11,10 +11,12 @@ var calculateTotals = function(fblList) {
     probability: 0
   };
   for(var i = 0; i < fblList.length; i++) {
-    res.points += fblList[i].points;
-    res.md += fblList[i].md;
-    res.risk += fblList[i].risk;
-    res.estimate_md += fblList[i].estimate_md;
+    if(fblList[i].probability !== 0) {
+      res.points += Math.round(fblList[i].points);
+      res.md += Math.round(fblList[i].md);
+      res.risk += Math.round(fblList[i].risk);
+      res.estimate_md += Math.round(fblList[i].estimate_md);
+    }
   }
   return res;
 };
@@ -30,14 +32,17 @@ var calculateBalances = function(fblList) {
     probability: 0
   };
   for(var i = 0; i < fblList.length; i++) {
-    res.points += fblList[i].points * fblList[i].probability;
-    res.md += fblList[i].md * fblList[i].probability;
-    res.risk += fblList[i].risk * fblList[i].probability;
-    res.estimate_md += fblList[i].estimate_md * fblList[i].probability;
+    res.points += Math.round(fblList[i].points) * fblList[i].probability;
+    res.md += Math.round(fblList[i].md) * fblList[i].probability;
+    res.risk += Math.round(fblList[i].risk) * fblList[i].probability;
+    res.estimate_md += Math.round(fblList[i].estimate_md) * fblList[i].probability;
   }
+  res.points = Math.round(res.points);
+  res.md = Math.round(res.md);
+  res.risk = Math.round(res.risk);
+  res.estimate_md = Math.round(res.estimate_md);
   return res;
 };
-
 
 
 /* Calculate total and balanced total for a PI */

@@ -1,10 +1,13 @@
 <!-- FBL MOVE !-->
 <div class="panel panel-default">
+  <!-- Title !-->
   <div class="panel-heading">
     <h4>{{ title }}</h4>
   </div>
   <center><h5>{{ actualPi }}</h5></center>
+  <!-- Beginning form group !-->
   <form class="form-horizontal" name="fblForm" ng-submit="submit()" novalidate>
+    <!-- Possible pis !-->
     <div class="form-group">
       <label class="col-sm-2 control-label">PI :</label>
       <div class="col-sm-8">
@@ -14,12 +17,20 @@
         <div ng-messages="fblForm.proba.$error"><div ng-messages-include="partials/form-errors.html"></div></div>
       </div>
     </div>
+    <!-- Comment !-->
+    <div class="form-group">
+      <label class="col-sm-2 control-label">Comment :</label>
+      <div class="col-sm-8">
+        <textarea name="comment" class="form-control" rows="5" maxlength="1000" ng-model="comment"></textarea>
+        <div ng-messages="fblForm.comment.$error"><div ng-messages-include="partials/form-errors.html"></div></div>
+      </div>
+    </div>
+    <!-- Submit or cancel !-->
     <div class="form-group center">
       <a class="btn btn-default" href="#/pi/{{pi_number}}/fbl/all" role="button">Cancel</a>
       <input class="btn btn-default" type="submit" formmethod="post" id="submit" value="Submit" ng-disabled="fblForm.$invalid" />
     </div>
   </form>
+  <!-- End form group !-->
 </div>
 <!-- END FBL MOVE !-->
-
-{{newPi}}

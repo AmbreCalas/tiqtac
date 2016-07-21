@@ -20,7 +20,8 @@ app.config(['$resourceProvider', function($resourceProvider) {
 /* Routage module declaration  */
 var routage = angular.module('routage', [
   'ngRoute',
-  'routeControllers'
+  'routeControllers',
+  'angular-loading-bar'
 ]);
 
 /* Routage module controllers declaration  */
@@ -41,6 +42,10 @@ routage.config(['$routeProvider', function($routeProvider) {
       templateUrl: 'partials/add-pi.html',
       controller: 'addPiCtrl'
     })
+    .when('/pi/:pi/modify', {
+      templateUrl: 'partials/modify-pi.html',
+      controller: 'modifyPiCtrl'
+    })
     .when('/pi/:pi/fbl/all', {
       templateUrl: '/partials/fbl-list.html',
       controller: 'fblListCtrl'
@@ -49,9 +54,17 @@ routage.config(['$routeProvider', function($routeProvider) {
       templateUrl: '/partials/add-fbl.html',
       controller: 'addFblCtrl'
     })
-    .when('/pi/:pi/fbl/:fbl', {
+    .when('/pi/:pi/fbl/:fbl/details', {
       templateUrl: '/partials/fbl-details.html',
       controller: 'fblDetailsCtrl'
+    })
+    .when('/pi/:pi/fbl/:fbl/modify', {
+      templateUrl: '/partials/modify-fbl.html',
+      controller: 'modifyFblCtrl'
+    })
+    .when('/pi/:pi/fbl/:fbl/history', {
+      templateUrl: '/partials/fbl-history.html',
+      controller: 'fblHistoryCtrl'
     })
     .when('/pi/:pi/fbl/:fbl/move', {
       templateUrl: '/partials/fbl-move.html',
@@ -63,5 +76,4 @@ routage.config(['$routeProvider', function($routeProvider) {
     .otherwise({
       redirectTo: '/notFound'
     });
-}
-]);
+}]);

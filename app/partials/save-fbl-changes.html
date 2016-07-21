@@ -1,10 +1,30 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-
-</body>
-</html>
+<!-- Header !-->
+<div class="modal-header">
+  <h3 class="modal-title">Modify FBLs</h3>
+</div>
+<!-- Body !-->
+<div class="modal-body">
+  <!-- If there are changes -->
+  <div class="ng-hide" ng-show="changed_fbls.length !== 0">Why do you want to modify :
+    <ul ng-repeat="fbl in changed_fbls">
+      <li>
+        <div class="form-group">
+          <label class="control-label">{{fbl.fbl_name}} <br>
+            ({{old_fbls[$index].points}}, {{old_fbls[$index].md}}, {{old_fbls[$index].risk}}, {{old_fbls[$index].estimate_md}}) -> ({{fbl.points}}, {{fbl.md}}, {{fbl.risk}}, {{fbl.estimate_md}})</label>
+          <textarea name="comment[$index]" class="form-control" rows="2" maxlength="1000" ng-model="comment[$index]"></textarea>
+          <div ng-messages="fblForm.comment.$error"><div ng-messages-include="partials/form-errors.html"></div></div>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <!-- If there are no changes -->
+  <p class="ng-hide" ng-show="changed_fbls.length === 0">You didn't change any fbl values.</p>
+</div>
+<!-- Footer !-->
+<div class="modal-footer">
+  <!-- If there are changes -->
+  <button class="btn btn-default ng-hide" type="button" ng-show="changed_fbls.length !== 0" ng-click="cancel()">Cancel</button>
+  <button class="btn btn-default ng-hide" type="button" ng-show="changed_fbls.length !== 0" ng-click="validateChanges()">Confirm</button>
+  <!-- If there are no changes -->
+  <button class="btn btn-default ng-hide" type="button" ng-show="changed_fbls.length === 0" ng-click="cancel()">Back</button>
+</div>
