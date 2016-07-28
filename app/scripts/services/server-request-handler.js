@@ -29,6 +29,18 @@ app.factory('PiByNumber', ['$http', '$q', function($http, $q){
   };
 }]);
 
+// Current revision for a pi
+app.factory('CurrentRevision', ['$http', '$q', function($http, $q){
+  return function(piNumber) {
+    var serverPiByNum = server + 'pi/' + piNumber + '/currentRevision';
+    var deferred = $q.defer();
+    $http.get(serverPiByNum).then(
+      function (data, status, headers, config) {deferred.resolve(data);},
+      function (data, status, headers, config) {deferred.reject(data);});
+    return deferred.promise;
+  };
+}]);
+
 // All fbl for a pi
 app.factory('FblAll', ['$http', '$q', function($http, $q){
   return function(piNumber) {
@@ -77,6 +89,19 @@ app.factory('FblHistory', ['$http', '$q', function($http, $q){
   };
 }]);
 
+// History for a pi
+app.factory('PiHistory', ['$http', '$q', function($http, $q){
+  return function(piNumber) {
+    var serverPiHistory = server + 'pi/' + piNumber + '/history';
+    var deferred = $q.defer();
+    $http.get(serverPiHistory).then(
+      function (data, status, headers, config) {deferred.resolve(data);},
+      function (data, status, headers, config) {deferred.reject(data);});
+    return deferred.promise;
+  };
+}]);
+
+
 
 /* *************** POST *************** */
 // Create pi
@@ -98,12 +123,28 @@ app.factory('CreatePi', ['$http', '$q', function($http, $q){
 // Create fbl
 app.factory('CreateFbl', ['$http', '$q', function($http, $q){
   return function(pi_number, name, description, points, md, risk, estimateMd, proba) {
-    var serverFbl = server + 'pi/' + pi_number + '/fbl/add';
+    var serverFblAdd = server + 'pi/' + pi_number + '/fbl/add';
     var deferred = $q.defer();
     $http({
-      url: serverFbl,
+      url: serverFblAdd,
       method: 'POST',
       params: {'name': name, 'description': description, 'points': points, 'md': md, 'risk': risk, 'estimateMd': estimateMd, 'probability': proba}
+    }).then(
+      function (data, status, headers, config) {deferred.resolve(data);},
+      function (data, status, headers, config) {deferred.reject(data);});
+    return deferred.promise;
+  };
+}]);
+
+// Create a revision
+app.factory('CreateRevision', ['$http', '$q', function($http, $q){
+  return function(pi_number, comment) {
+    var serverRevisionAdd = server + 'pi/' + pi_number + '/revision/add';
+    var deferred = $q.defer();
+    $http({
+      url: serverRevisionAdd,
+      method: 'POST',
+      params: {'comment': comment}
     }).then(
       function (data, status, headers, config) {deferred.resolve(data);},
       function (data, status, headers, config) {deferred.reject(data);});
@@ -132,13 +173,13 @@ app.factory('ChangePi', ['$http', '$q', function($http, $q){
 
 // Modify a pi's coeffs
 app.factory('ModifyCoeffs', ['$http', '$q', function($http, $q){
-  return function(piNumber, coeff1, coeff2) {
+  return function(piNumber, oldCoeff1, oldCoeff2, newCoeff1, newCoeff2, comment) {
     var serverModifyCoeffs = server + 'pi/' + piNumber + '/modify';
     var deferred = $q.defer();
     $http({
       url: serverModifyCoeffs,
       method: 'PUT',
-      params: {'firstCoeff': coeff1, 'secondCoeff': coeff2}
+      params: {'oldCoeff1': oldCoeff1, 'oldCoeff2': oldCoeff2, 'newCoeff1': newCoeff1, 'newCoeff2': newCoeff2, 'comment': comment}
     }).then(
       function (data, status, headers, config) {deferred.resolve(data);},
       function (data, status, headers, config) {deferred.reject(data);});
@@ -148,13 +189,13 @@ app.factory('ModifyCoeffs', ['$http', '$q', function($http, $q){
 
 // Adjust fbl with pi coeffs
 app.factory('AdjustFbls', ['$http', '$q', function($http, $q){
-  return function(piNumber, coeff1, coeff2) {
+  return function(piNumber, newCoeff1, newCoeff2, oldCoeff1, oldCoeff2, comment) {
     var serverAdjustFbls = server + 'pi/' + piNumber + '/adjustFbls';
     var deferred = $q.defer();
     $http({
       url: serverAdjustFbls,
       method: 'PUT',
-      params: {'coeff1': coeff1, 'coeff2': coeff2}
+      params: {'newCoeff1': newCoeff1, 'newCoeff2': newCoeff2, 'oldCoeff1': oldCoeff1, 'oldCoeff2': oldCoeff2, 'comment': comment}
     }).then(
       function (data, status, headers, config) {deferred.resolve(data);},
       function (data, status, headers, config) {deferred.reject(data);});
@@ -220,7 +261,7 @@ app.factory('DeleteFbl', ['$http', '$q', function($http, $q){
     var deferred = $q.defer();
     $http({
       url: serverDeleteFbl,
-      method: 'PUT',
+      method: 'DELETE',
       params: {'comment': comment}
     }).then(
       function (data, status, headers, config) {deferred.resolve(data);},
