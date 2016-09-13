@@ -1,0 +1,9 @@
+{
+  "weekValuesCoeffs" : {
+    "withoutBLMcoeff": 5,
+    "withBLMcoeff": 1,
+    "withGUIcoeff": 1.5
+  },
+  "piNbrOfDays": 84,
+  "loginTime": 12
+}
